@@ -48,7 +48,7 @@ const Movie = (props) => {
                         </section>
                         
                         <section>
-                            <span className="m-2 btn btn-dark" onClick={handleFave}>Favorite</span>
+                            {props.displayFavorites ? <span className="m-2 btn btn-dark" onClick={handleFave}>Favorite</span> : null}
                             <span className="delete"><input type="button" className="m-2 btn btn-danger" value="Delete" onClick={handleClick}/></span>
                         </section>
                     </div>
@@ -60,7 +60,8 @@ const Movie = (props) => {
 
 function mapStateToProps (state){
     return ({
-        movies: state.movies.movies
+        movies: state.movies.movies,
+        displayFavorites: state.favorites.displayFavorites
     })
 }
 
