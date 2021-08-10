@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { addMovie } from './../actions/movieActions';
+import React, { useState, useEffect } from 'react';
+import { addMovie, addCounter } from './../actions/movieActions';
 import { connect } from 'react-redux';
 
 import { Link, useHistory } from 'react-router-dom';
@@ -16,6 +16,13 @@ const AddMovieForm = (props) => {
         id: 6
     });
 
+    useEffect(() => {
+        setMovie({
+            ...movie,
+            id: props.counter
+        })
+    }, [props.counter])
+
     const handleChange = (e) => {
         setMovie({
             ...movie,
@@ -26,6 +33,7 @@ const AddMovieForm = (props) => {
     const handleSubmit = (e) => {
         e.preventDefault();
         props.addMovie(movie)
+        props.addCounter()
         push('/movies/')
     }
 
@@ -71,4 +79,10 @@ const AddMovieForm = (props) => {
     </div>);
 }
 
-export default connect(null, { addMovie })(AddMovieForm);
+function mapStateToProps (state){
+    return ({
+        counter: state.movies.counter
+    })
+}
+
+export default connect(mapStateToProps, { addMovie, addCounter })(AddMovieForm);
