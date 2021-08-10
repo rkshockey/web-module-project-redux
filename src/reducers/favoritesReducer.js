@@ -1,4 +1,4 @@
-import { ADD_FAVORITE } from "../actions/favoritesActions"
+import { ADD_FAVORITE, DELETE_FAVORITE } from "../actions/favoritesActions"
 
 const initialState = {
     favorites: [],
@@ -11,6 +11,12 @@ function reducer (state = initialState, action){
             return ({
                 ...state,
                 favorites: [...state.favorites, action.payload]
+            })
+        
+        case DELETE_FAVORITE:
+            return ({
+                ...state,
+                favorites: state.favorites.filter(item => action.payload !== item.id)
             })
 
         default:
